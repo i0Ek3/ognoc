@@ -1,3 +1,3 @@
-module Ognoc
+module github.com/i0Ek3/ognoc
 
-go 1.15
+go 1.17
