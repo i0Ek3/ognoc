@@ -21,4 +21,4 @@
 //      specialize2Spechar(r rune) string
 // 
 //
-package main
+package ognoc

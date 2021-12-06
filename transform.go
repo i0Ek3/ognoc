@@ -1,4 +1,4 @@
-package main
+package ognoc
 
 import (
 	"fmt"
@@ -24,18 +24,18 @@ const (
 
 type F func(string, int) string
 
-func Caeser(plaintext string, offset int) (res string) {
+func Caesar(plaintext string, offset int) (res string) {
 	strs := stringCheck(plaintext)
 	if offsetCheck(strs, offset) {
-		res = caeser(strs, offset)
+		res = caesar(strs, offset)
 	} else {
 		offset = randomN(len(strs))
-		res = caeser(strs, offset)
+		res = caesar(strs, offset)
 	}
 	return
 }
 
-func caeser(plaintext string, offset int) string {
+func caesar(plaintext string, offset int) string {
 	if offset >= 0 {
 		plaintext = plaintext[offset:len(plaintext)] + plaintext[:offset]
 	} else {
@@ -47,8 +47,8 @@ func caeser(plaintext string, offset int) string {
 
 func Transform(cipher, algoType string, ns ...int) string {
 	// TODO: getLen()
-	//n := getN(len(Caeser(cipher, offset)), ns[0])
-	n := randomN(len(Caeser(cipher, offset)))
+	//n := getN(len(Caesar(cipher, offset)), ns[0])
+	n := randomN(len(Caesar(cipher, offset)))
 	if offsetCheck(cipher, n) {
 		return splitCipher(algoType, cipher, n)
 	} else {

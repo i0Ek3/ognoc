@@ -2,15 +2,16 @@ package ognoc
 
 import (
 	"fmt"
+    "testing"
 )
 
 func show() {
 	fmt.Printf("------------------------\n")
 }
 
-func main() {
+func TestTransform(t *testing.T) {
 	str := stringCheck(plaintext)
-	pwd1 := Caeser(str, offset)
+	pwd1 := Caesar(str, offset)
 
 	// FIXME:
 	pwd2 := Transform(pwd1, "x")
