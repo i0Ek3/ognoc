@@ -51,14 +51,20 @@ More details please run command `go doc`.
 
 ## Some Issues We Met Here
 
-- `syntax error: cannot use ... with non-final parameter ns`
+```console
+- syntax error: cannot use ... with non-final parameter ns
+- cannot assign to string, cause of strings a immutable
+- cannot use type byte as type rune in assignment
+```
+
 
 ## TODO
 
 - [ ] bug fix
-    - [ ] fix inner position in fillN function
+    - [ ] fix invariable position in fillN function
     - [ ] lowUp()/upLow() cannot generate the correct result
     - [ ] check example/example.go to find the other bugs
+    - [ ] improve cipher's complicated
 - [x] support more encrypt algorithm
 - [ ] more general policy
     - [x] common transform

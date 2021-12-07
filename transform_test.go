@@ -2,129 +2,34 @@ package ognoc
 
 import (
 	"fmt"
-    "testing"
+	"testing"
 )
 
-func show() {
-	fmt.Printf("------------------------\n")
-}
-
 func TestTransform(t *testing.T) {
-	str := stringCheck(plaintext)
-	pwd1 := Caesar(str, offset)
-
-	// FIXME:
-	pwd2 := Transform(pwd1, "x")
-
-	// FIXME: lowUp/upLow return wrong result: single char
-	pwd3 := CommonT(str, "spec")
-	pwd4 := CommonT(str, "low")
-	pwd5 := CommonT(str, "up")
-
-	// FIXME: insert position fixed
-	pwd6 := FormatN(pwd1, "number", "inner", pwdLen)
-	pwd7 := FormatN(pwd1, "letter", "inner", pwdLen)
-	pwd8 := FormatN(pwd1, "spechar", "inner", pwdLen)
-
-	// FIXME: insert position fixed
-	pwd9 := FormatN(pwd1, "number", "pre", pwdLen)
-	pwd10 := FormatN(pwd1, "letter", "pre", pwdLen)
-	pwd11 := FormatN(pwd1, "spechar", "pre", pwdLen)
-
-	// FIXME: insert position fixed
-	pwd12 := FormatN(pwd1, "number", "post", pwdLen)
-	pwd13 := FormatN(pwd1, "letter", "post", pwdLen)
-	pwd14 := FormatN(pwd1, "spechar", "post", pwdLen)
-
-	// cutN
-	pwd15 := FormatN("hahSDhashdfhasdfhasdfh", "number", "pre", pwdLen)
-	pwd16 := FormatN("hahSDhashdfhasdfhasdfh", "number", "inner", pwdLen)
-	pwd17 := FormatN("hahSDhashdfhasdfhasdfh", "number", "post", pwdLen)
-
-	// fillN
-	pwd18 := FormatN("hahSDh", "letter", "pre", pwdLen)
-	pwd19 := FormatN("hahSDh", "letter", "inner", pwdLen)
-	pwd20 := FormatN("hahSDh", "letter", "post", pwdLen)
-
-	pwd21 := FormatN("hahSDh", "spechar", "pre", pwdLen)
-	pwd22 := FormatN("hahSDh", "spechar", "inner", pwdLen)
-	pwd23 := FormatN("hahSDh", "spechar", "post", pwdLen)
-
-	pwd24 := FormatN("hahSDh", "number", "pre", pwdLen)
-	pwd25 := FormatN("hahSDh", "number", "post", pwdLen)
-
-	show()
-	fmt.Println(str)
-	show()
-	fmt.Println(pwd1)
-	show()
-	fmt.Println(pwd2)
-	show()
-	fmt.Println(pwd3)
-	show()
-	fmt.Println(pwd4)
-	show()
-	fmt.Println(pwd5)
-	show()
-	fmt.Println(pwd6)
-	fmt.Println(pwd7)
-	fmt.Println(pwd8)
-	show()
-	fmt.Println(pwd9)
-	fmt.Println(pwd10)
-	fmt.Println(pwd11)
-	show()
-	fmt.Println(pwd12)
-	fmt.Println(pwd13)
-	fmt.Println(pwd14)
-	show()
-	fmt.Println(pwd15)
-	fmt.Println(pwd16)
-	fmt.Println(pwd17)
-	show()
-	fmt.Println(pwd18)
-	fmt.Println(pwd19)
-	fmt.Println(pwd20)
-	show()
-	fmt.Println(pwd21)
-	fmt.Println(pwd22)
-	fmt.Println(pwd23)
-	show()
-	fmt.Println(pwd24)
-	fmt.Println(pwd25)
-
-    // result:
-    // ------------------------
-    // abcdefghi
-    // ------------------------
-    // cdefghiab
-    // ------------------------
-
-    // ------------------------
-    // abcdefghi@h
-    // ------------------------
-    // A
-    // ------------------------
-    // a
-    // ------------------------
-    // ------------------------
-    // 1076742cdefghiab
-    // prtnuzicdefghiab
-    // >]{$+]<cdefghiab
-    // ------------------------
-    // cdefghiab0744375
-    // cdefghiabjstdmlp
-    // cdefghiab&#}@@&^
-    // ------------------------
-    // ashdfhasdfhasdfh
-    // hahSDhashdfhasdf
-    // ------------------------
-    // tiomuykeqrhahSDh
-    // hahSDhvzvjlmhrzp
-    // ------------------------
-    // _..)&!@)+#hahSDh
-    // hahSDh?.<%&@}-+]
-    // ------------------------
-    // 4730216262hahSDh
-    // hahSDh0247462390
+	fmt.Printf("----> plaintext = %s\n", plaintext)
+	fmt.Printf("----> Caesar(%s, %d) = %s\n", plaintext, offset, Caesar(plaintext, 2))
+	fmt.Printf("----> Transform(%s, 'x', %d) = %s\n", plaintext, pwdLen, Transform(plaintext, "x", pwdLen))
+	fmt.Printf("----> CommonT(%s, 'low', %d) = %s\n", plaintext, pwdLen, CommonT(plaintext, "low", pwdLen))
+	fmt.Printf("----> CommonT(%s, 'up', %d) = %s\n", plaintext, pwdLen, CommonT(plaintext, "up", pwdLen))
+	fmt.Printf("----> CommonT(%s, 'spec', %d) = %s\n", plaintext, pwdLen, CommonT(plaintext, "spec", pwdLen))
+	fmt.Printf("----> CommonT(%s, 'low', %d) = %s\n", plaintext, pwdLen, CommonT(plaintext, "low", pwdLen))
+	fmt.Printf("----> StringCheck('a 3bd!!!!Ef@2RLLLK') = %s\n", StringCheck("a 3bd!!!!Ef@2RLLLK"))
+	fmt.Printf("----> FormatN('abcdef', 'number', 'pre', %d) = %s\n", pwdLen, FormatN("abcdef", "number", "pre", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'number', 'inner', %d) = %s\n", pwdLen, FormatN("abcdef", "number", "inner", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'number', 'post', %d) = %s\n", pwdLen, FormatN("abcdef", "number", "post", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'spechar', 'pre', %d) = %s\n", pwdLen, FormatN("abcdef", "spechar", "pre", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'spechar', 'inner', %d) = %s\n", pwdLen, FormatN("abcdef", "spechar", "inner", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'spechar', 'post', %d) = %s\n", pwdLen, FormatN("abcdef", "spechar", "post", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'letter', 'pre', %d) = %s\n", pwdLen, FormatN("abcdef", "letter", "pre", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'letter', 'inner', %d) = %s\n", pwdLen, FormatN("abcdef", "letter", "inner", pwdLen))
+	fmt.Printf("----> FormatN('abcdef', 'letter', 'post', %d) = %s\n", pwdLen, FormatN("abcdef", "letter", "post", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'number', 'pre', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "number", "pre", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'number', 'inner', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "number", "inner", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'number', 'post', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "number", "post", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'spechar', 'pre', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "spechar", "pre", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'spechar', 'inner', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "spechar", "inner", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'spechar', 'post', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "spechar", "post", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'letter', 'pre', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "letter", "pre", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'letter', 'inner', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "letter", "inner", pwdLen))
+	fmt.Printf("----> FormatN('abcdefghijkl', 'letter', 'post', %d) = %s\n", pwdLen, FormatN("abcdefghijkl", "letter", "post", pwdLen))
 }
