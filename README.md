@@ -62,9 +62,8 @@ More details please run command `go doc`.
 
 - [ ] bug fix
     - [ ] fix invariable position in fillN function
-    - [ ] lowUp()/upLow() cannot generate the correct result
-    - [ ] check example/example.go to find the other bugs
     - [ ] improve cipher's complicated
+    - [ ] generation result continuity problem
 - [x] support more encrypt algorithm
 - [ ] more general policy
     - [x] common transform

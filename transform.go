@@ -38,8 +38,8 @@ func Caesar(plaintext string, offset int) (res string) {
 
 // caesar returns the transformed string by given offset
 func caesar(plaintext string, offset int) string {
-	str := modifiableStr(plaintext)
-	alp := modifiableStr(alphabets)
+	str := stringToRunes(plaintext)
+	alp := stringToRunes(alphabets)
 
 	if offset >= 0 {
 		for i := 0; i < len(plaintext); i++ {
@@ -54,11 +54,19 @@ func caesar(plaintext string, offset int) string {
 	return string(str)
 }
 
-// modifiableStr returns a []rune to make given string
+// stringToRunes returns a []rune to make given string
 // modifiable and ignores strings' immutable feature
-func modifiableStr(strs string) []rune {
+func stringToRunes(strs string) []rune {
 	str := []rune(strs)
 	return str
+}
+
+// runesToString converts []rune to string
+func runesToString(runes []rune) (res string) {
+    for _, v := range runes {
+        res += string(v)
+    }
+    return
 }
 
 // Transform calls splitCipher to split given cipher with length n
@@ -132,7 +140,10 @@ func getN(length int, ns ...int) (n int) {
 	return
 }
 
-// CommonT returns a transformed string in given functions
+// CommonT returns a transformed string in given functions,
+// different policy represents different transformed functions,
+// argument ns represents transform correspoding characters
+// every ns times 
 func CommonT(plaintext, policy string, ns ...int) (res string) {
 	strs := StringCheck(plaintext)
 
@@ -158,7 +169,7 @@ func StringCheck(str string) string {
 // removeNonstr removes the non-string characters and lowcase then
 func removeNonstr(str string) string {
 	res := ""
-	s := modifiableStr(str)
+	s := stringToRunes(str)
 	for i := 0; i < len(str); i++ {
 		if unicode.IsLetter(s[i]) {
 			res += string(s[i])
@@ -240,27 +251,42 @@ func splitCipherWithKey(algoType, cipher, key string, n int) (res string) {
 // lowUp upcases the given string accroding offset, while offset = 2,
 // the string abcdefg => aBcDeFg, while offset = 3, abcdefg => abCdeFg
 func lowUp(str string, offset int) string {
-	for i := 0; i < len(str); i += offset {
-		str = strings.ToUpper(string(str[i]))
-	}
-	return str
+    res := ""
+	for i := 0; i < len(str); i++ {
+        if i > 0 && ((i-1) % offset == 0) {
+		    res += strings.ToUpper(string(str[i]))
+        } else {
+		    res += strings.ToLower(string(str[i]))
+        }
+    }
+	return res
 }
 
 // upLow lowcases the given string accroding to offset, while offset = 2,
 // the string abcdefg => AbCdEfG, while offset = 3, abcdefg => AbcDefG
 func upLow(str string, offset int) string {
-	for i := 0; i < len(str); i += offset {
-		str = strings.ToLower(string(str[i]))
+    res := ""
+	for i := 0; i < len(str); i++ {
+        if i > 0 && ((i-1) % offset == 0) {
+		    res += strings.ToLower(string(str[i]))
+        } else {
+            res += strings.ToUpper(string(str[i]))
+        }
 	}
-	return str
+	return res
 }
 
 // special specializes the given string accroding to offset
 func special(str string, offset int) string {
-	for i := 0; i < len(str); i += offset {
-		str += specialize2Spechar(rune(str[i]))
+    res := ""
+	for i := 0; i < len(str); i++ {
+        if i > 0 && ((i-1) % offset == 0) {
+		    res += runeToSpechar(rune(str[i]))
+        } else {
+            res += string(str[i])
+        }
 	}
-	return str
+	return res
 }
 
 // FormatN formats the given string into a new string
@@ -380,10 +406,10 @@ func cutN(str, where string, n int) string {
 	return str
 }
 
-// specialize2Spechar specializes the like-char characters into
+// runeToSpechar specializes the like-char characters into
 // special characters, and then return the result. For example,
 // i,j => !, a => @
-func specialize2Spechar(r rune) string {
+func runeToSpechar(r rune) string {
 	switch r {
 	case 'a', 'c':
 		return "@"
@@ -393,19 +419,9 @@ func specialize2Spechar(r rune) string {
 		return "+"
 	case 'x':
 		return "*"
-	default:
-		return string(r)
-	}
-}
-
-// specialize2Num specializes the like-char characters into
-// a number, and then return the result. For example,
-// i,j => 1, o => 0
-func specialize2Num(r rune) string {
-	switch r {
 	case 'b':
 		return "6"
-	case 'e', 'i', 'j', 'l':
+	case 'e', 'l':
 		return "1"
 	case 'g', 'q':
 		return "9"
