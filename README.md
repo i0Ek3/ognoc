@@ -51,11 +51,10 @@ More details please run command `go doc`.
 
 ## Some Issues We Met Here
 
-```console
-- syntax error: cannot use ... with non-final parameter ns
-- cannot assign to string, cause of strings a immutable
-- cannot use type byte as type rune in assignment
-```
+- syntax error: cannot use ... with non-final parameter ns | `func test(a int, b ...int) {}`
+- cannot assign to string, cause of strings a immutable | `r := []rune(string)`
+- cannot use type byte as type rune in assignment | `var r rune; var b byte; r = rune(b)`
+- non-constant array bound length | `b := make([]byte, length)`
 
 
 ## TODO

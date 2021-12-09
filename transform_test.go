@@ -8,11 +8,11 @@ import (
 func TestTransform(t *testing.T) {
 	fmt.Printf("----> plaintext = %s\n", plaintext)
 	fmt.Printf("----> Caesar(%s, %d) = %s\n", plaintext, offset, Caesar(plaintext, 2))
-	fmt.Printf("----> Transform(%s, 'x', %d) = %s\n", plaintext, pwdLen, Transform(plaintext, "x", pwdLen))
+	fmt.Printf("----> Transform(%s, %s, %d) = %s\n", plaintext, algoType, pwdLen, Transform(plaintext, algoType, pwdLen))
 	fmt.Printf("----> CommonT(abcefgipxors, 'low', %d) = %s\n", offset, CommonT("abcefgipxors", "low", offset))
 	fmt.Printf("----> CommonT(abcefgipxors, 'up', %d) = %s\n", offset, CommonT("abcefgipxors", "up", offset))
 	fmt.Printf("----> CommonT(abcefgipxors, 'spec', %d) = %s\n", offset, CommonT("abcefgipxors", "spec", offset))
-	fmt.Printf("----> StringCheck('a 3bd!!!!Ef@2RLLLK') = %s\n", StringCheck("a 3bd!!!!Ef@2RLLLK"))
+	fmt.Printf("----> FormatString('a 3bd!!!!Ef@2RLLLK') = %s\n", FormatString("a 3bd!!!!Ef@2RLLLK"))
 	fmt.Printf("----> FormatN('abcdef', 'number', 'pre', %d) = %s\n", pwdLen, FormatN("abcdef", "number", "pre", pwdLen))
 	fmt.Printf("----> FormatN('abcdef', 'number', 'inner', %d) = %s\n", pwdLen, FormatN("abcdef", "number", "inner", pwdLen))
 	fmt.Printf("----> FormatN('abcdef', 'number', 'post', %d) = %s\n", pwdLen, FormatN("abcdef", "number", "post", pwdLen))
