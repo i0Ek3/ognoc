@@ -19,9 +19,11 @@ var (
 	specials  = "!@#$%^&*()_+-=[]{}<>?.|"
 
 	plaintext = "aBcDefGhi"
-    algoType  = "SHA512"
+    algoType  = "SHA224"
 	offset    = 2
-	pwdLen    = 16
+	pwdLen    = 12
+    content   = "spechar"
+    where     = "inner"
 )
 
 // type F indicates a function which returns a string
@@ -220,11 +222,14 @@ func offsetCheck(given string, offset int) bool {
 func lowUp(str string, offset int) string {
     res := ""
 	for i := 0; i < len(str); i++ {
-        if i > 0 && ((i-1) % offset == 0) {
+        if (i+1) % offset == 0 {
 		    res += strings.ToUpper(string(str[i]))
         } else {
 		    res += strings.ToLower(string(str[i]))
         }
+    }
+    if len(res) < pwdLen {
+        res = FormatN(res, content, where, pwdLen - len(res))
     }
 	return res
 }
@@ -234,12 +239,15 @@ func lowUp(str string, offset int) string {
 func upLow(str string, offset int) string {
     res := ""
 	for i := 0; i < len(str); i++ {
-        if i > 0 && ((i-1) % offset == 0) {
+        if (i+1) % offset == 0 {
 		    res += strings.ToLower(string(str[i]))
         } else {
             res += strings.ToUpper(string(str[i]))
         }
 	}
+    if len(res) < pwdLen {
+        res = FormatN(res, content, where, pwdLen - len(res))
+    }
 	return res
 }
 
@@ -247,12 +255,15 @@ func upLow(str string, offset int) string {
 func special(str string, offset int) string {
     res := ""
 	for i := 0; i < len(str); i++ {
-        if i > 0 && ((i-1) % offset == 0) {
+        if (i+1) % offset == 0 {
 		    res += runeToSpechar(rune(str[i]))
         } else {
             res += string(str[i])
         }
 	}
+    if len(res) < pwdLen {
+        res = FormatN(res, content, where, pwdLen - len(res))
+    }
 	return res
 }
 
@@ -271,8 +282,6 @@ func FormatN(str, content, where string, n int) (newstr string) {
 
 // fillN fills the given content into str according where with length n
 func fillN(str, content, where string, n int) string {
-	// fill numbers, chars and characters
-	// TODO: only characters? cause of formatN()
 	if content == "number" {
 		return fillNumber(str, where, n)
 	} else if content == "spechar" {
@@ -295,7 +304,6 @@ func fillN(str, content, where string, n int) string {
 // where, and then return the result. The specified content
 // is not accepted temporarily
 func fillNumber(str, where string, n int) string {
-	// TODO: hardcode for now, change later
 	strs := ""
 	switch where {
 	case "pre":
@@ -306,7 +314,8 @@ func fillNumber(str, where string, n int) string {
 		for i := 0; i < n; i++ {
 			strs += string(numbers[randomN(len(numbers))])
 		}
-		str = str[:1] + strs + str[2:]
+        l := randomN(len(str))
+		str = str[:l] + strs + str[len(str)-l:]
 	case "post":
 		for i := 0; i < n; i++ {
 			str += string(numbers[randomN(len(numbers))])
@@ -328,7 +337,8 @@ func fillSpechar(str, where string, n int) string {
 		for i := 0; i < n; i++ {
 			strs += string(specials[randomN(len(specials))])
 		}
-		str = str[:1] + strs + str[2:]
+        l := randomN(len(str))
+		str = str[:l] + strs + str[len(str)-l:]
 	case "post":
 		for i := 0; i < n; i++ {
 			str += string(specials[randomN(len(specials))])
@@ -350,7 +360,8 @@ func fillLetter(str, where string, n int) string {
 		for i := 0; i < n; i++ {
 			strs += string(alphabets[randomN(len(alphabets))])
 		}
-		str = str[:1] + strs + str[2:]
+        l := randomN(len(str))
+		str = str[:l] + strs + str[len(str)-l:]
 	case "post":
 		for i := 0; i < n; i++ {
 			str += string(alphabets[randomN(len(alphabets))])

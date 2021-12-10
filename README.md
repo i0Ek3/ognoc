@@ -60,12 +60,10 @@ More details please run command `go doc`.
 ## TODO
 
 - [ ] bug fix
+    - [ ] wierd CommonT() issue: sometime have right result sometime not
     - [ ] fix invariable position in fillN function
-    - [ ] improve cipher's complicated
     - [ ] generation result continuity problem
-- [x] support more encrypt algorithm
 - [ ] more general policy
-    - [x] common transform
     - [ ] keyword transform
 - [ ] generic support
 - [ ] password strongability detection
