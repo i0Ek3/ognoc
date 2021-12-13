@@ -1,7 +1,8 @@
-package ognoc
+package main
 
 import (
 	"fmt"
+    "flag"
 	"crypto/sha1"
 	"crypto/sha512"
 	"math"
@@ -11,6 +12,7 @@ import (
 	"unicode"
 
     "golang.org/x/crypto/sha3"
+    "github.com/i0Ek3/color"
 )
 
 var (
@@ -24,6 +26,7 @@ var (
 	pwdLen    = 12
     content   = "spechar"
     where     = "inner"
+    showColor = "blue"
 )
 
 // type F indicates a function which returns a string
@@ -412,4 +415,42 @@ func runeToSpechar(r rune) string {
 	default:
 		return string(r)
 	}
+}
+
+func colored(colorName string, str ...string) string {
+    switch colorName {
+    case "white":
+        return color.White(str...)
+    case "black":
+        return color.Black(str...)
+    case "green":
+        return color.Green(str...)
+    case "yellow":
+        return color.Yellow(str...)
+    case "red":
+        return color.Red(str...)
+    case "cyan":
+        return color.Cyan(str...)
+    case "magenta":
+        return color.Magenta(str...)
+    default:
+        return color.Red("No color offered!")
+    }
+}
+
+func Generate(plaintext, position, fill, c string, num, length int) string {
+    cipher := Caesar(plaintext, num)
+    return colored(c, FormatN(cipher, fill, position, length))
+}
+
+func main() {
+    l := flag.Int("l", pwdLen, "the length of generated password")
+    n := flag.Int("n", offset, "the offset you want to move")
+    p := flag.String("p", where, "specific the position to insert(pre, inner, post)")
+    f := flag.String("f", content, "the base fill content(number, letter, spechar)")
+    c := flag.String("c", showColor, "the color of generate password(black, white, blue, red, yellow, green, cyan, magenta)")
+
+    flag.Parse()
+
+    fmt.Println(Generate(plaintext, *p, *f, *c, *n, *l))
 }

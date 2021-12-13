@@ -1,4 +1,4 @@
-package ognoc
+package main
 
 import (
 	"fmt"

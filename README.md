@@ -25,11 +25,33 @@
 
 ## Getting Started
 
+### Usage
+
+```console
+» ./transform -h
+Usage of ./transform:
+  -c string
+    	the color of generate password(black, white, blue, red, yellow, green, cyan, magenta) (default "blue")
+  -f string
+    	the base fill content(number, letter, spechar) (default "spechar")
+  -l int
+    	the length of generated password (default 12)
+  -n int
+    	the offset you want to move (default 2)
+  -p string
+    	specific the position to insert(pre, inner, post) (default "inner")
+
+» ./transform -f="number" -l=15 -n=4 -p="post" -c="magenta"
+efghijklm919263
+
+```
+
+
 ### Install
 
 `$ go get https://github.com/i0Ek3/ognoc`
 
-### Usage
+### Import
 
 ```Go
 package main
@@ -44,6 +66,8 @@ func main() {
 
     fmt.Printf(pwd1)
     fmt.Printf(pwd2)
+
+    fmt.Println(ognoc.Generate(plaintext, position, fill, color, offset, pwdLen))
 }
 ```
 
@@ -59,6 +83,7 @@ More details please run command `go doc`.
 
 ## TODO
 
+- [x] cmd and argument control support
 - [ ] bug fix
     - [ ] wierd CommonT() issue: sometime have right result sometime not
     - [ ] fix invariable position in fillN function
@@ -70,7 +95,6 @@ More details please run command `go doc`.
     - [ ] accroding entrophy to calculate the comlicated of password
     - [ ] or use regex to detect the characters coverage
 - [ ] logger system
-- [ ] cmd support
 - [ ] access database to store cipher
     - [ ] MySQL
     - [ ] PostgreSQL
