@@ -443,13 +443,20 @@ func Generate(plaintext, position, fill, c string, num, length int) string {
     return colored(c, FormatN(cipher, fill, position, length))
 }
 
-func main() {
-    l := flag.Int("l", pwdLen, "the length of generated password")
-    n := flag.Int("n", offset, "the offset you want to move")
-    p := flag.String("p", where, "specific the position to insert(pre, inner, post)")
-    f := flag.String("f", content, "the base fill content(number, letter, spechar)")
-    c := flag.String("c", showColor, "the color of generate password(black, white, blue, red, yellow, green, cyan, magenta)")
+var (
+    l, n    *int
+    p, f, c *string
+)
 
+func init() {
+    l = flag.Int("l", pwdLen, "the length of generated password")
+    n = flag.Int("n", offset, "the offset you want to move")
+    p = flag.String("p", where, "specific the position to insert(pre, inner, post)")
+    f = flag.String("f", content, "the base fill content(number, letter, spechar)")
+    c = flag.String("c", showColor, "the color of generate password(black, white, blue, red, yellow, green, cyan, magenta)")
+}
+
+func main() {
     flag.Parse()
 
     fmt.Println(Generate(plaintext, *p, *f, *c, *n, *l))
