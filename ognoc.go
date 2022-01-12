@@ -26,7 +26,7 @@ var (
 	pwdLen    = 12
     content   = "spechar"
     where     = "inner"
-    showColor = "blue"
+    showColor = "yellow"
 )
 
 // type F indicates a function which returns a string
@@ -434,13 +434,27 @@ func colored(colorName string, str ...string) string {
     case "magenta":
         return color.Magenta(str...)
     default:
-        return color.Red("No color offered!")
+        //return color.Red("No color offered!")
+        return color.Blue(str...)
     }
 }
 
 func Generate(plaintext, position, fill, c string, num, length int) string {
     cipher := Caesar(plaintext, num)
     return colored(c, FormatN(cipher, fill, position, length))
+}
+
+// GenerateRandom generates the random cipher with ungiven string
+func GenerateRandom(c string, length int) string {
+    // TODO
+    return ""
+}
+
+// Detect detects the complicated of cipher by entropy and regex,
+// and return the percentage of complicated or unavailable.
+func Detect(result string) string {
+    // TODO
+    return ""
 }
 
 var (

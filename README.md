@@ -28,8 +28,8 @@
 ### Usage
 
 ```console
-» ./transform -h
-Usage of ./transform:
+» ./ognoc -h
+Usage of ./ognoc:
   -c string
     	the color of generate password(black, white, blue, red, yellow, green, cyan, magenta) (default "blue")
   -f string
@@ -41,7 +41,7 @@ Usage of ./transform:
   -p string
     	specific the position to insert(pre, inner, post) (default "inner")
 
-» ./transform -f="number" -l=15 -n=4 -p="post" -c="magenta"
+» ./ognoc -f="number" -l=15 -n=4 -p="post" -c="magenta"
 efghijklm919263
 
 ```
@@ -73,6 +73,19 @@ func main() {
 
 More details please run command `go doc`.
 
+
+## Password Quality Detection(PQD)
+
+TODO.
+
+Referenced belows links:
+
+- [https://github.com/EYHN/PasswordQualityCalculator](https://github.com/EYHN/PasswordQualityCalculator)
+- [https://github.com/rlmao/pass-strength](https://github.com/rlmao/pass-strength)
+- [https://github.com/dadiu/passwordStrength](https://github.com/dadiu/passwordStrength)
+- [https://gist.github.com/aqaue18ax/ca8d8d532a72ee124686](https://gist.github.com/aqaue18ax/ca8d8d532a72ee124686)
+
+
 ## Some Issues We Met Here
 
 - syntax error: cannot use ... with non-final parameter ns | `func test(a int, b ...int) {}`
@@ -81,25 +94,30 @@ More details please run command `go doc`.
 - non-constant array bound length | `b := make([]byte, length)`
 
 
+## Bugfix
+
+- [ ] wierd CommonT() issue: sometime have right result sometime not
+- [ ] fix invariable position in fillN function
+- [ ] generation result continuity problem
+- [ ] output the random length with default value 
+
+
 ## TODO
 
 - [x] cmd and argument control support
-- [ ] bug fix
-    - [ ] wierd CommonT() issue: sometime have right result sometime not
-    - [ ] fix invariable position in fillN function
-    - [ ] generation result continuity problem
-- [ ] more general policy
+- [ ] output cipher randomly with given or ungiven string
+- [ ] support more general policy
     - [ ] keyword transform
-- [ ] generic support
+- [ ] support more complicated policy
+    - [ ] build personal transform algorithm: gogogo()
 - [ ] password strongability detection
     - [ ] accroding entrophy to calculate the comlicated of password
     - [ ] or use regex to detect the characters coverage
+- [ ] generic support
 - [ ] logger system
 - [ ] access database to store cipher
     - [ ] MySQL
     - [ ] PostgreSQL
-- [ ] comlicated policy
-    - [ ] build personal transform algorithm: gogogo()
 
 
 ## Credit
