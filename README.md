@@ -4,23 +4,25 @@
 
 `ognoc` is a cryptosystem which offers you kinda ability to set strong password to protect your personal information.
 
+
 ## Why `ognoc`?
 
 `ognoc` is a variation of Congo, they are anagram. I use it as the name of cryptosystem to create confusion, just like our password, while you can remember it, you can't guess its meaning. Of course, Ognoc more than that, it can do more, welcome to try it.
 
+
 ## Feature
 
 - General Policy
-    - general transformation
-        - lowcase + upcase + special characters
-    - two version support
-        - only contain numbers and alphabets
-        - contain special characters
-    - Caesar cipher
-    - SHA transformation
+  - general transformation
+    - lowcase + upcase + special characters
+  - two version support
+    - only contain numbers and alphabets
+    - contain special characters
+  - Caesar cipher
+  - SHA transformation
 - Complicated Policy
-    - Multiple transformation
-
+  - Multiple transformation
+- PQD
 
 
 ## Getting Started
@@ -31,19 +33,18 @@
 » ./ognoc -h
 Usage of ./ognoc:
   -c string
-    	the color of generate password(black, white, blue, red, yellow, green, cyan, magenta) (default "blue")
+        the color of generate password(black, white, blue, red, yellow, green, cyan, magenta) (default "blue")
   -f string
-    	the base fill content(number, letter, spechar) (default "spechar")
+        the base fill content(number, letter, spechar) (default "spechar")
   -l int
-    	the length of generated password (default 12)
+        the length of generated password (default 12)
   -n int
-    	the offset you want to move (default 2)
+        the offset you want to move (default 2)
   -p string
-    	specific the position to insert(pre, inner, post) (default "inner")
+        specific the position to insert(pre, inner, post) (default "inner")
 
 » ./ognoc -f="number" -l=15 -n=4 -p="post" -c="magenta"
 efghijklm919263
-
 ```
 
 
@@ -51,13 +52,14 @@ efghijklm919263
 
 `$ go get https://github.com/i0Ek3/ognoc`
 
+
 ### Import
 
 ```Go
 package main
 
 import (
-		"github.com/i0Ek3/ognoc"
+        "github.com/i0Ek3/ognoc"
 )
 
 func main() {
@@ -65,7 +67,9 @@ func main() {
     pwd2 := ognoc.Transform(cipher, algoType, n...)
 
     fmt.Printf(pwd1)
+    fmt.Printf(Detect(pwd1))
     fmt.Printf(pwd2)
+    fmt.Printf(Detect(pwd2))
 
     fmt.Println(ognoc.Generate(plaintext, position, fill, color, offset, pwdLen))
 }
@@ -76,14 +80,7 @@ More details please run command `go doc`.
 
 ## Password Quality Detection(PQD)
 
-TODO.
-
-Referenced belows links:
-
-- [https://github.com/EYHN/PasswordQualityCalculator](https://github.com/EYHN/PasswordQualityCalculator)
-- [https://github.com/rlmao/pass-strength](https://github.com/rlmao/pass-strength)
-- [https://github.com/dadiu/passwordStrength](https://github.com/dadiu/passwordStrength)
-- [https://gist.github.com/aqaue18ax/ca8d8d532a72ee124686](https://gist.github.com/aqaue18ax/ca8d8d532a72ee124686)
+In ognoc, we use easy scoring mechanism to detect password quality, please check [this post](https://github.com/rlmao/pass-strength) to know more.
 
 
 ## Some Issues We Met Here
@@ -105,24 +102,30 @@ Referenced belows links:
 ## TODO
 
 - [x] cmd and argument control support
-- [ ] output cipher randomly with given or ungiven string
-- [ ] support more general policy
-    - [ ] keyword transform
-- [ ] support more complicated policy
-    - [ ] build personal transform algorithm: gogogo()
 - [ ] password strongability detection
-    - [ ] accroding entrophy to calculate the comlicated of password
-    - [ ] or use regex to detect the characters coverage
+  - [x] easy scoring mechanism
+  - [ ] accroding entrophy to calculate the complicated of password
+  - [ ] or use regex to detect the characters coverage
+- [ ] output cipher randomly with given or ungiven string
+  - [ ] do not use the result convert by caesar transform 
+- [ ] support more general policy
+  - [ ] keyword transform
+- [ ] support more complicated policy
+  - [ ] build personal transform algorithm: gogogo()
 - [ ] generic support
 - [ ] logger system
 - [ ] access database to store cipher
-    - [ ] MySQL
-    - [ ] PostgreSQL
+  - [ ] MySQL/PostgreSQL
 
 
 ## Credit
 
 - http://www.atoolbox.net/Category.php?Id=27
+
 - http://www.metools.info/code/c28.html
+
 - https://yqqy.top/regex-lookground-verify-passowrd/
+
 - https://icode.best/i/24537132742865
+
+- [https://github.com/rlmao/pass-strength](https://github.com/rlmao/pass-strength)
