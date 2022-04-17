@@ -56,4 +56,9 @@ func TestTransform(t *testing.T) {
 		o(Detect("21lsdkf"))
 		o(Detect("21LSDKF**&"))
 	})
+
+    t.Run("test GenerateRandom", func(t *testing.T) {
+        o(GenerateRandom(mixed))
+        o(GenerateRandom(alphabets))
+	})
 }

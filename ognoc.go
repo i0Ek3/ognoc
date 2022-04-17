@@ -15,11 +15,15 @@ import (
 	"golang.org/x/crypto/sha3"
 )
 
-const (
-	alphabets = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	numbers   = "0123456789"
-	specials  = "!@#$%&*()_+-=?.,:;<>"
+var (
+	alphabets string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	numbers   string = "0123456789"
+	specials  string = "!@#$%&*()_+-=?.,:;<>"
+	mixed     string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*()_+-=?.,:;<>"
+)
 
+const (
+	bits      = 8
 	plaintext = "aBcDefGhi"
 	algoType  = "SHA224"
 	offset    = 2
@@ -156,12 +160,6 @@ func splitCipher(algoType, cipher string, n int) (res string) {
 		res = cipher[:n]
 	}
 	return
-}
-
-// randomN returns a random number in a given interval (0, length)
-func randomN(length int) int {
-	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(length)
 }
 
 // getN returns a int number in given arguments
@@ -441,10 +439,44 @@ func Generate(plaintext, position, fill, c string, num, length int) string {
 	return colored(c, FormatN(cipher, fill, position, length))
 }
 
-// GenerateRandom generates the random cipher with ungiven string
-func GenerateRandom(c string, length int) string {
-	// TODO
-	return ""
+// randomBetween returns a random number in a given interval (a, b-a)
+func randomBetween(a, b int) int {
+	rand.Seed(time.Now().UnixNano())
+	return a + rand.Intn(b-a)
+}
+
+// randomN returns a random number in a given interval (0, length)
+func randomN(length int) int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(length)
+}
+
+func generateCharset(str string) (res []string) {
+	n := len(str)
+	tmp := ""
+	len := randomBetween(1, 4)
+	for i := 0; i < n; i++ {
+		for j := 0; j < 1+rand.Intn(len+1); j++ {
+			tmp += string(str[rand.Intn(n)])
+		}
+		res = append(res, tmp)
+		tmp = ""
+	}
+	return
+}
+
+func GenerateRandom(str string) string {
+	res := ""
+	charset := generateCharset(str)
+
+	n := len(charset)
+	for i := 0; i < bits/2; i++ {
+		res += charset[rand.Intn(n)]
+	}
+	for len(res) < bits {
+		res += charset[rand.Intn(n)]
+	}
+	return res
 }
 
 // Detect detects the complicated of cipher by easy scoring mechanism
@@ -597,4 +629,6 @@ func main() {
 	flag.Parse()
 
 	fmt.Println(Generate(plaintext, *p, *f, *c, *n, *l))
+	fmt.Println(GenerateRandom(alphabets))
+	fmt.Println(GenerateRandom(mixed))
 }

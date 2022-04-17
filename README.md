@@ -65,6 +65,7 @@ import (
 func main() {
     pwd1 := ognoc.Caesar(plaintext, offset)
     pwd2 := ognoc.Transform(cipher, algoType, n...)
+    
 
     fmt.Printf(pwd1)
     fmt.Printf(Detect(pwd1))
@@ -102,12 +103,13 @@ In ognoc, we use easy scoring mechanism to detect password quality, please check
 ## TODO
 
 - [x] cmd and argument control support
+- [x] output cipher randomly with given or ungiven string
+  - [x] do not use the result convert by caesar transform
+  - [x] support generate random and mixed character
 - [ ] password strongability detection
   - [x] easy scoring mechanism
   - [ ] accroding entrophy to calculate the complicated of password
   - [ ] or use regex to detect the characters coverage
-- [ ] output cipher randomly with given or ungiven string
-  - [ ] do not use the result convert by caesar transform 
 - [ ] support more general policy
   - [ ] keyword transform
 - [ ] support more complicated policy
