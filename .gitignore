@@ -1,3 +1,6 @@
 .DS_Store
-ognoc
+
 .idea
+.vscode
+
+cmd/ognoc/ognoc

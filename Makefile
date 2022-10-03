@@ -3,10 +3,10 @@
 GO=go
 
 build:
-	@$(GO) build .
+	@$(GO) build ./cmd/ognoc/main.go
 
 test:
 	@$(GO) test -v .
 
 clean:
-	@rm ognoc
+	@rm ./cmd/ognoc/ognoc
