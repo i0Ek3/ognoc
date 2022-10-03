@@ -31,7 +31,7 @@ func new(ctx *cli.Context) error {
 		options = append(options, ognoc.WithSpechar())
 	}
 
-	fmt.Println(color.Cyan(ognoc.NewPassword(ctx.Int("length"), options...)))
+	fmt.Println(color.Cyan(ognoc.NewPassword(options...)))
 
 	return nil
 }

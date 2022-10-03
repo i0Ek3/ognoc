@@ -32,7 +32,7 @@ func WithSpechar() Option {
 }
 
 // NewPassword generates a complicated cipher
-func NewPassword(length int, options ...Option) string {
+func NewPassword(options ...Option) string {
 	if len(options) != 0 {
 		cipher := ""
 		for _, opt := range options {
